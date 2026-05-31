@@ -1,6 +1,6 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
+###############################################################
+#  DEPENDENCIES
+###############################################################
 /node_modules
 /.pnp
 .pnp.*
@@ -10,33 +10,55 @@
 !.yarn/releases
 !.yarn/versions
 
-# testing
-/coverage
+###############################################################
+#  LOCK FILES
+#  pnpm-lock.yaml is the source of truth — ignore the others
+###############################################################
+package-lock.json
+yarn.lock
 
-# next.js
+###############################################################
+#  NEXT.JS / BUILD
+###############################################################
 /.next/
 /out/
-
-# production
 /build
+*.tsbuildinfo
+next-env.d.ts
 
-# misc
-.DS_Store
-*.pem
+###############################################################
+#  TESTING
+###############################################################
+/coverage
 
-# debug
+###############################################################
+#  ENVIRONMENT
+#  ignore every .env*, but keep the committed example
+###############################################################
+.env*
+!.env.example
+
+###############################################################
+#  DEBUG LOGS
+###############################################################
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
-!.env.example
+###############################################################
+#  AI / ASSISTANT
+#  local tooling only — CLAUDE.md stays tracked
+###############################################################
+.claude/
 
-# vercel
+###############################################################
+#  DEPLOY
+###############################################################
 .vercel
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+###############################################################
+#  OS / EDITOR
+###############################################################
+.DS_Store
+*.pem
