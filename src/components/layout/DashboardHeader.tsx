@@ -1,9 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { LogOut, Settings, User } from 'lucide-react';
+import { LogOut, Search, Settings, User } from 'lucide-react';
 import { SidebarTrigger } from '../ui/sidebar';
 import { ThemeToggle } from '../shared/ThemeToggle';
+import { COMMAND_EVENT } from '../dashboard/CommandPalette';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -25,7 +26,20 @@ export default function DashboardHeader() {
 
   return (
     <header className="sticky top-0 z-10 flex h-14 items-center justify-between border-b bg-background/80 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <SidebarTrigger />
+      <div className="flex items-center gap-2">
+        <SidebarTrigger />
+        <button
+          type="button"
+          onClick={() => window.dispatchEvent(new Event(COMMAND_EVENT))}
+          className="flex items-center gap-2 rounded-full border bg-muted/40 px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted"
+        >
+          <Search className="size-3.5" />
+          <span className="hidden sm:inline">Search…</span>
+          <kbd className="hidden rounded border bg-background px-1.5 text-[10px] font-medium sm:inline">
+            ⌘K
+          </kbd>
+        </button>
+      </div>
 
       <div className="flex items-center gap-2">
         <ThemeToggle />
