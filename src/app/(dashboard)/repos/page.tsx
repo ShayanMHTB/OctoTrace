@@ -1,6 +1,7 @@
 'use client';
 
 import RepoTable from '@/components/tables/RepoTable';
+import RepoTreemap from '@/components/charts/RepoTreemap';
 
 export default function ReposPage() {
   return (
@@ -11,6 +12,7 @@ export default function ReposPage() {
           Search, filter, and sort across every repository you own.
         </p>
       </div>
+      <RepoTreemap />
       <RepoTable />
     </div>
   );

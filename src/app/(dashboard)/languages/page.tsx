@@ -4,6 +4,8 @@ import { Code2, Layers, Trophy } from 'lucide-react';
 import StatCard from '@/components/blocks/StatCard';
 import LanguageDonut from '@/components/dashboard/LanguageDonut';
 import LanguageBreakdown from '@/components/dashboard/LanguageBreakdown';
+import LanguageChord from '@/components/charts/LanguageChord';
+import LanguageRepoSankey from '@/components/charts/LanguageRepoSankey';
 import { Card } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useLanguageBytes } from '@/hooks/useGitHub';
@@ -85,6 +87,11 @@ export default function LanguagesPage() {
             </div>
           )}
         </Card>
+      </div>
+
+      <div className="grid gap-6 lg:grid-cols-2">
+        <LanguageChord />
+        <LanguageRepoSankey />
       </div>
     </div>
   );

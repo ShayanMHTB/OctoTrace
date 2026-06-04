@@ -297,3 +297,65 @@ export function useRepoReleases(fullName: string) {
     enabled: Boolean(fullName),
   });
 }
+
+// ---- Language co-occurrence (chord) ----
+
+export interface LanguageMatrix {
+  keys: string[];
+  matrix: number[][];
+  ready: boolean;
+}
+
+/**
+ * Builds a co-occurrence matrix of the top languages across repos (how often
+ * two languages appear in the same repo). Reuses the cached per-repo
+ * ['repo-languages'] queries from the Languages page.
+ */
+export function useLanguageMatrix(topN = 8): LanguageMatrix {
+  const { data: repos } = useRepos();
+  const list = repos ?? [];
+
+  const results = useQueries({
+    queries: list.map((repo) => ({
+      queryKey: ['repo-languages', repo.full_name],
+      queryFn: () => getRepoLanguages(repo.full_name),
+      staleTime: 1000 * 60 * 60,
+    })),
+  });
+
+  const loaded = results.filter((r) => r.isSuccess).length;
+
+  return useMemo(() => {
+    const perRepo = results
+      .map((r) => (r.data ? Object.keys(r.data) : []))
+      .filter((a) => a.length > 0);
+
+    const counts = new Map<string, number>();
+    for (const langs of perRepo) {
+      for (const l of langs) counts.set(l, (counts.get(l) ?? 0) + 1);
+    }
+    const keys = [...counts.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, topN)
+      .map(([k]) => k);
+
+    const index = new Map(keys.map((k, i) => [k, i]));
+    const matrix = keys.map(() => keys.map(() => 0));
+    for (const langs of perRepo) {
+      const present = langs.filter((l) => index.has(l));
+      for (let i = 0; i < present.length; i++) {
+        for (let j = 0; j < present.length; j++) {
+          if (i === j) continue;
+          matrix[index.get(present[i])!][index.get(present[j])!] += 1;
+        }
+      }
+    }
+
+    return {
+      keys,
+      matrix,
+      ready: list.length > 0 && loaded === list.length,
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loaded, list.length, topN]);
+}
