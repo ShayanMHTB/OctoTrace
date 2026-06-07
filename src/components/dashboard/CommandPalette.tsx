@@ -8,6 +8,7 @@ import { del } from 'idb-keyval';
 import { toast } from 'sonner';
 import {
   Activity,
+  Database,
   FolderGit2,
   Github,
   GitPullRequest,
@@ -44,6 +45,7 @@ const NAV = [
   { href: '/repos', icon: FolderGit2, label: 'Repositories' },
   { href: '/languages', icon: Languages, label: 'Languages' },
   { href: '/activity', icon: Activity, label: 'Activity' },
+  { href: '/sql', icon: Database, label: 'SQL Explorer' },
   { href: '/pull-requests', icon: GitPullRequest, label: 'PRs & Issues' },
   { href: '/social', icon: Users, label: 'Social' },
   { href: '/wrapped', icon: Sparkles, label: 'Wrapped' },

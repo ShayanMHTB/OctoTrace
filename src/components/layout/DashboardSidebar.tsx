@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
   Activity,
+  Database,
   FolderGit2,
   Github,
   GitPullRequest,
@@ -40,6 +41,7 @@ const GROUPS = [
       { href: '/repos', icon: FolderGit2, title: 'Repositories' },
       { href: '/languages', icon: Languages, title: 'Languages' },
       { href: '/activity', icon: Activity, title: 'Activity' },
+      { href: '/sql', icon: Database, title: 'SQL Explorer' },
     ],
   },
   {
