@@ -12,6 +12,7 @@ import {
   LayoutDashboard,
   Settings,
   Sparkles,
+  TrendingUp,
   Users,
 } from 'lucide-react';
 import {
@@ -41,6 +42,7 @@ const GROUPS = [
       { href: '/repos', icon: FolderGit2, title: 'Repositories' },
       { href: '/languages', icon: Languages, title: 'Languages' },
       { href: '/activity', icon: Activity, title: 'Activity' },
+      { href: '/trends', icon: TrendingUp, title: 'Trends' },
       { href: '/sql', icon: Database, title: 'SQL Explorer' },
     ],
   },

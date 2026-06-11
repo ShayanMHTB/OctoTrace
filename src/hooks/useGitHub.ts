@@ -16,6 +16,7 @@ import {
   searchIssues,
 } from '@/lib/github';
 import { githubGraphQL } from '@/lib/github-graphql';
+import { getSnapshots } from '@/lib/snapshots';
 
 /** Authenticated user profile (REST). */
 export function useViewer() {
@@ -358,4 +359,14 @@ export function useLanguageMatrix(topN = 8): LanguageMatrix {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loaded, list.length, topN]);
+}
+
+// ---- Local time-series snapshots ----
+
+export function useSnapshots() {
+  return useQuery({
+    queryKey: ['snapshots'],
+    queryFn: getSnapshots,
+    staleTime: 0,
+  });
 }

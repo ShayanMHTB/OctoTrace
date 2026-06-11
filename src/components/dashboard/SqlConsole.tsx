@@ -12,13 +12,19 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { useContributions, useLanguageBytes, useRepos } from '@/hooks/useGitHub';
+import {
+  useContributions,
+  useLanguageBytes,
+  useRepos,
+  useSnapshots,
+} from '@/hooks/useGitHub';
 import { loadWarehouse, runQuery, type QueryResult } from '@/lib/duckdb';
 
 const SCHEMA = [
   { table: 'repos', columns: 'name, language, stars, forks, open_issues, size_kb, is_fork, is_archived, is_private, pushed_at' },
   { table: 'languages', columns: 'language, bytes, percent, repo_count' },
   { table: 'contributions', columns: 'date, count, weekday' },
+  { table: 'snapshots', columns: 'date, stars, followers, following, repos, contributions' },
 ];
 
 const SAMPLES = [
@@ -52,6 +58,7 @@ export default function SqlConsole() {
   const { data: repos } = useRepos();
   const langs = useLanguageBytes();
   const { data: contrib, isLoading: contribLoading } = useContributions();
+  const { data: snapshots } = useSnapshots();
 
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
   const [loadError, setLoadError] = useState<string | null>(null);
@@ -111,6 +118,19 @@ export default function SqlConsole() {
             count: d.contributionCount,
             weekday: d.weekday,
           })),
+      });
+    }
+    if (snapshots && snapshots.length > 0) {
+      datasets.push({
+        name: 'snapshots',
+        rows: snapshots.map((s) => ({
+          date: s.date,
+          stars: s.stars ?? null,
+          followers: s.followers ?? null,
+          following: s.following ?? null,
+          repos: s.repos ?? null,
+          contributions: s.contributions ?? null,
+        })),
       });
     }
 

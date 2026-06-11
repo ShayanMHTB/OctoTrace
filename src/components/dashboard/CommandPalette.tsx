@@ -22,6 +22,7 @@ import {
   Star,
   Sun,
   Trash2,
+  TrendingUp,
   User,
   Users,
 } from 'lucide-react';
@@ -45,6 +46,7 @@ const NAV = [
   { href: '/repos', icon: FolderGit2, label: 'Repositories' },
   { href: '/languages', icon: Languages, label: 'Languages' },
   { href: '/activity', icon: Activity, label: 'Activity' },
+  { href: '/trends', icon: TrendingUp, label: 'Trends' },
   { href: '/sql', icon: Database, label: 'SQL Explorer' },
   { href: '/pull-requests', icon: GitPullRequest, label: 'PRs & Issues' },
   { href: '/social', icon: Users, label: 'Social' },
