@@ -1,8 +1,16 @@
 'use client';
 
-import { useCallback, useEffect, useState, type ReactNode } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Download } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { downloadPng } from '@/lib/export';
 import { cn } from '@/lib/utils';
 
 export interface WrappedSlide {
@@ -22,6 +30,7 @@ export default function WrappedStory({
   footer?: ReactNode;
 }) {
   const [index, setIndex] = useState(0);
+  const cardRef = useRef<HTMLDivElement>(null);
   const last = slides.length - 1;
 
   const next = useCallback(
@@ -44,7 +53,11 @@ export default function WrappedStory({
   const onLast = index === last;
 
   return (
-    <div className="relative mx-auto flex aspect-[4/5] w-full max-w-md flex-col overflow-hidden rounded-3xl border bg-card sm:aspect-[3/4]">
+    <div className="mx-auto w-full max-w-md space-y-3">
+      <div
+        ref={cardRef}
+        className="relative flex aspect-[4/5] w-full flex-col overflow-hidden rounded-3xl border bg-card sm:aspect-[3/4]"
+      >
       <div className="bg-grid pointer-events-none absolute inset-0 opacity-50" />
       <motion.div
         key={`glow-${slide.id}`}
@@ -123,6 +136,20 @@ export default function WrappedStory({
             <ChevronRight className="size-4" />
           </button>
         </div>
+      </div>
+      </div>
+
+      <div className="flex justify-center">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() =>
+            cardRef.current && downloadPng(cardRef.current, 'octotrace-wrapped')
+          }
+        >
+          <Download className="size-4" />
+          Download image
+        </Button>
       </div>
     </div>
   );
