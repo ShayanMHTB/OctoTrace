@@ -1,9 +1,10 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Roboto, Roboto_Mono } from 'next/font/google';
 import './globals.css';
 
 import { ThemeProvider } from '@/components/shared/ThemeProvider';
 import Providers from '@/lib/providers';
+import ServiceWorkerRegistrar from '@/components/shared/ServiceWorkerRegistrar';
 
 // Main UI font
 const roboto = Roboto({
@@ -28,6 +29,13 @@ export const metadata: Metadata = {
   },
   description:
     'Beautiful, privacy-first GitHub analytics — fetched live in your browser and stored nowhere.',
+  manifest: '/manifest.webmanifest',
+  icons: { icon: '/icon.svg', apple: '/icon.svg' },
+  appleWebApp: { capable: true, title: 'OctoTrace', statusBarStyle: 'default' },
+};
+
+export const viewport: Viewport = {
+  themeColor: '#0a0a0a',
 };
 
 export default function RootLayout({
@@ -50,6 +58,7 @@ export default function RootLayout({
         >
           <Providers>{children}</Providers>
         </ThemeProvider>
+        <ServiceWorkerRegistrar />
       </body>
     </html>
   );
