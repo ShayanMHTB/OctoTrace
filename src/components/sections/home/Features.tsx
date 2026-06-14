@@ -7,6 +7,7 @@ import {
   Languages,
   RefreshCw,
   ShieldCheck,
+  type LucideIcon,
 } from 'lucide-react';
 import { motion, useReducedMotion } from 'motion/react';
 import { Reveal, Stagger, StaggerItem } from '@/components/shared/Reveal';
@@ -43,7 +44,7 @@ function CardShell({
   className,
   children,
 }: {
-  icon: React.ElementType;
+  icon: LucideIcon;
   title: string;
   description: string;
   className?: string;
