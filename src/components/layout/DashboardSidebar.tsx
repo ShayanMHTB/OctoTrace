@@ -10,6 +10,7 @@ import {
   GitPullRequest,
   Languages,
   LayoutDashboard,
+  Orbit,
   Settings,
   Sparkles,
   TrendingUp,
@@ -33,6 +34,7 @@ const GROUPS = [
     label: 'Menu',
     items: [
       { href: '/dashboard', icon: LayoutDashboard, title: 'Overview' },
+      { href: '/galaxy', icon: Orbit, title: 'Galaxy' },
       { href: '/wrapped', icon: Sparkles, title: 'Wrapped' },
     ],
   },

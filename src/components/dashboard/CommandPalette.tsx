@@ -16,6 +16,7 @@ import {
   LayoutDashboard,
   LogOut,
   MonitorCog,
+  Orbit,
   Moon,
   Settings,
   Sparkles,
@@ -43,6 +44,7 @@ export const COMMAND_EVENT = 'octotrace:open-command';
 
 const NAV = [
   { href: '/dashboard', icon: LayoutDashboard, label: 'Overview' },
+  { href: '/galaxy', icon: Orbit, label: 'Galaxy' },
   { href: '/repos', icon: FolderGit2, label: 'Repositories' },
   { href: '/languages', icon: Languages, label: 'Languages' },
   { href: '/activity', icon: Activity, label: 'Activity' },
